@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: nginx:1.20
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      - name: logging-sidecar
+        image: busybox:1.28
+        command: ['sh', '-c', "while true; do echo sync logs; sleep 20; done"]
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "125m"
+          limits:
+            memory: "64Mi"
+            cpu: "250m"

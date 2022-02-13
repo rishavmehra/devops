@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: nginx:1.20
+  - name: logging-sidecar
+    image: busybox:1.28
+    command: ['sh', '-c', "while true; do echo sync logs; sleep 20; done"]
+  initContainers:
+  - name: myservice-available
+    image: busybox:1.28
+    command: ['sh', '-c', "until nslookup mydb-service; do echo waiting for myservice; sleep 4; done"]
+
+---
+# alternative command syntax
+- name: logging-sidecar
+  image: busybox:1.28
+  command:
+  - 'sh'
+  - '-c' 
+  - "while true; do echo sync logs; sleep 20; done"
+
+# alternative with args
+- name: logging-sidecar
+  image: busybox:1.28
+  command: [ "sh", "-c"]
+  args:
+  - while true; do
+      echo sync logs;
+      sleep 20;
+    done;

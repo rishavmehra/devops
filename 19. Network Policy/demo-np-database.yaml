@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-database
+  namespace: myapp
+spec:
+  podSelector:
+    matchLabels:
+      app: database
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: 
+  - from:
+    - podSelector:
+        matchLabels:
+           app: backend
+    ports:
+    - protocol: TCP
+      port: 6379
+

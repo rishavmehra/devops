@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-db
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql
+  policyTypes:
+    - Ingress
+  ingress:
+  - from:                  # first condition
+    - podSelector:
+        matchLabels:
+          app: backend
+    ports:                 # second condition 
+    - protocol: TCP
+      port: 3306

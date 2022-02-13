@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-backend
+  namespace: myapp # namespace for pod that gets the policy
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+    - Egress
+  egress:
+  - to:                  # first rule
+    - podSelector:
+        matchLabels:
+          app: mysql
+      namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: database
+    ports:                 
+    - protocol: TCP
+      port: 3306
+  - to:                  # second rule
+    - podSelector:
+        matchLabels:
+          app: redis
+      namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: database
+    ports:                 
+    - protocol: TCP
+      port: 6379

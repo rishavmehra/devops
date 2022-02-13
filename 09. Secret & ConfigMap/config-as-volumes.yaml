@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+data:
+  mysql.conf: |
+    [mysqld]
+    port=3306
+    socket=/tmp/mysql.sock
+    key_buffer_size=16M
+    max_allowed_packet=128M
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  secret.file: |
+    c29tZXN1cGVyc2VjcmV0IGZpbGUgY29udGVudHMgbm9ib2R5IHNob3VsZCBzZWU=
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-db
+  labels:
+    app: my-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-db
+  template:
+    metadata:
+      labels:
+        app: my-db
+    spec:
+      containers:
+      - name: my-db
+        image: busybox:1.28
+        command: ['sh', '-c', "cat /mysql/db-config; cat /mysql/db-secret"]
+
+        volumeMounts:
+        - name: db-config
+          mountPath: /mysql/db-config
+        - name: db-secret
+          mountPath: /mysql/db-secret
+          readOnly: true
+
+      volumes:
+        - name: db-config
+          configMap:
+            name: mysql-config
+        - name: db-secret
+          secret:
+            secretName: mysql-secret

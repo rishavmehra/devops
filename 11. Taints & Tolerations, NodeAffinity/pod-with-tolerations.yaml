@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-toleration
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.20
+  tolerations:
+  - effect: NoExecute
+    operator: Exists
+  nodeName: master
