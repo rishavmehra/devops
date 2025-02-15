@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 70%;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .goal-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .goal-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #e53935;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://avatars.githubusercontent.com/u/68805388?v=4" alt="Kubernetes Logo" class="logo">
+        <h2>Rishav Demo  </h2>
+        <form action="/add_goal" method="post">
+            <input type="text" name="goal_name" placeholder="Enter your goal">
+            <button type="submit">Add Goal</button>
+        </form>
+        {% if goals %}
+        <ul class="goal-list">
+            {% for goal in goals %}
+                <li class="goal-item">
+                    {{ goal[1] }}
+                    <form action="/remove_goal" method="post" style="display: inline;">
+                        <input type="hidden" name="goal_id" value="{{ goal[0] }}">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <footer>
+        @rishavmehra
+    </footer>
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.onsubmit = () => setTimeout(() => location.reload(), 500); // Reload page after a short delay
+        });
+    </script>
+</body>
+</html>
