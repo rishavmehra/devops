@@ -1,6 +1,7 @@
 # Kubernetes
 ---
 ### HELM
+[Cheat Sheet](https://helm.sh/docs/intro/cheatsheet/)
 ```
 // Install a chart from a local directory
 helm create mychart
