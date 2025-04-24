@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: firstpod
+  labels: # not important
+    app: firstpod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+    - name: ubuntu
+      image: ubuntu
+      command: ["sleep", "infinity"] # This will keep the container running indefinitely by sleeping forever.
