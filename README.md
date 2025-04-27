@@ -32,6 +32,56 @@ $ kubectl get pod <pod-name> -o yaml
 👉 [00. Exercises/Pod/Pod.yaml](00.%20Exercises/Pod/Pod.yaml)
 
 ---
+
+## 🔧 Exercise 2: Expose the App
+
+### 🎯 Task:
+> Create a service to expose a Pod in Kubernetes using different service types:
+>
+> - Create a Pod running an Nginx container that exposes ports 80 and 443.
+> - Expose the Pod with a NodePort service on port 30007.
+> - Create a LoadBalancer service that exposes the HTTPS port with TLS passthrough.
+> - Create another Pod with httpd that shares the same label to demonstrate service selector functionality.
+
+### 📂 Solution:
+👉 [00. Exercises/expose-the-app/manifest.yaml](00.%20Exercises/expose-the-app/manifest.yaml) - Nginx Pod  
+👉 [00. Exercises/expose-the-app/manifest2.yaml](00.%20Exercises/expose-the-app/manifest2.yaml) - Apache httpd Pod  
+👉 [00. Exercises/expose-the-app/svc.yaml](00.%20Exercises/expose-the-app/svc.yaml) - NodePort Service  
+👉 [00. Exercises/expose-the-app/svc-lb.yaml](00.%20Exercises/expose-the-app/svc-lb.yaml) - LoadBalancer Service
+
+#### 📚 Key Concepts:
+- **Services** act as stable network endpoints for Pods
+- **NodePort** exposes the service on each node's IP at a static port
+- **LoadBalancer** provisions an external load balancer to route traffic to the service
+- **Selectors** determine which Pods a Service targets based on labels
+
+---
+
+## 🔧 Exercise 3: Ingress from First Principle
+
+### 🎯 Task:
+> Implement a multi-service architecture with a custom Nginx-based ingress controller:
+>
+> - Create separate namespaces for frontend and backend applications
+> - Deploy a PostgreSQL database
+> - Deploy a frontend application (httpd) and a backend service (bun)
+> - Implement a custom Nginx reverse proxy to route requests based on domain names:
+>   - k8s.rshv.xyz(use your own domain) should route to the backend service
+>   - k8s2.rshv.xyz(use your own domain) should route to the frontend service
+
+### 📂 Solution:
+👉 [00. Exercises/ingress-first-principle/fe.yaml](00.%20Exercises/ingress-first-principle/fe.yaml) - Frontend Application  
+👉 [00. Exercises/ingress-first-principle/backend.yaml](00.%20Exercises/ingress-first-principle/backend.yaml) - Backend Application  
+👉 [00. Exercises/ingress-first-principle/db.yaml](00.%20Exercises/ingress-first-principle/db.yaml) - Database Deployment  
+👉 [00. Exercises/ingress-first-principle/reverse-proxy.yaml](00.%20Exercises/ingress-first-principle/reverse-proxy.yaml) - Custom Nginx Ingress
+
+#### 📚 Key Concepts:
+- **Namespaces** provide isolation between different application components
+- **ConfigMaps** store configuration data like Nginx configuration
+- **Service Discovery** using Kubernetes DNS (servicename.namespace.svc.cluster.local)
+- **Custom Ingress Controller** using Nginx reverse proxy for domain-based routing
+
+---
 # HELM
 [Cheat Sheet](https://helm.sh/docs/intro/cheatsheet/)
 ```
