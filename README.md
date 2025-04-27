@@ -8,6 +8,17 @@
 
 ---
 
+<details>
+<summary>Most Used Commands</summary>
+<br>
+<pre><code>
+$ kubectl get pods
+$ kubectl run nginx --image=nginx --dry-run=client -o yaml
+$ kubectl describe pod <pod-name>
+$ kubectl get pod <pod-name> -o yaml
+</code></pre>
+</details>
+
 ## 🔧 Exercise 1: Working with Pods (Declarative Only)
 
 ### 🎯 Task:

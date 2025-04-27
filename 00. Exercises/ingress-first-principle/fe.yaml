@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fe-team
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: fe-team
+  name: fe
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: fe
+  template:
+    metadata:
+      labels:
+        app: fe
+    spec:
+      containers:
+        - name: fe
+          image: httpd
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fe-team
+  name: fe
+spec:
+  type: ClusterIP
+  selector:
+    app: fe
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
