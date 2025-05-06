@@ -81,6 +81,30 @@ $ kubectl get pod <pod-name> -o yaml
 - **Service Discovery** using Kubernetes DNS (servicename.namespace.svc.cluster.local)
 - **Custom Ingress Controller** using Nginx reverse proxy for domain-based routing
 
+## 🔧 Exercise 4: Kubernetes Native Ingress
+
+### 🎯 Task:
+> Implement path-based routing using Kubernetes native Ingress resources:
+>
+> - Deploy two applications: a backend using Nginx and a frontend using Apache httpd
+> - Create ClusterIP services for both applications
+> - Configure a Kubernetes Ingress resource to route traffic based on URL paths:
+>   - /backend path should route to the backend service
+>   - /frontend path should route to the frontend service
+> - Use annotations to configure URL rewriting
+
+### 📂 Solution:
+👉 [00. Exercises/ingress/manifest-be.yaml](00.%20Exercises/ingress/manifest-be.yaml) - Backend Deployment and Service  
+👉 [00. Exercises/ingress/manifest-fe.yaml](00.%20Exercises/ingress/manifest-fe.yaml) - Frontend Deployment and Service  
+👉 [00. Exercises/ingress/ingress.yaml](00.%20Exercises/ingress/ingress.yaml) - Ingress Resource
+
+#### 📚 Key Concepts:
+- **Ingress Resources** provide HTTP/HTTPS routing, path-based routing, and name-based virtual hosting
+- **IngressClass** specifies which controller should implement the Ingress
+- **Path Types** define how paths are matched (Prefix, Exact, ImplementationSpecific)
+- **Annotations** configure controller-specific behaviors like URL rewriting
+- **Ingress Controller** is the component that actually implements the Ingress rules (typically Nginx)
+
 ---
 # HELM
 [Cheat Sheet](https://helm.sh/docs/intro/cheatsheet/)
