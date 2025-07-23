@@ -9,6 +9,8 @@ Distributed Systems Check here:
 - [📌 kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/quick-reference/)  
 - [📘 Pods Documentation](https://kubernetes.io/docs/concepts/workloads/pods/)
 
+![alt text](image.png)
+
 ---
 
 <details>
